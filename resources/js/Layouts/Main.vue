@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import {switchTheme} from "../theme.js";
+</script>
 
 <template>
   <header class="bg-slate-800 text-white">
@@ -7,7 +9,8 @@
 
       <div>
         <button
-            class="hover:bg-slate-700 w-6 h-6 grid place-items-center rounded-full hover:outline outline-1 outline-white">
+            class="hover:bg-slate-700 w-6 h-6 grid place-items-center rounded-full hover:outline outline-1 outline-white"
+            @click="switchTheme()">
           <i class="fa-solid fa-circle-half-stroke"></i>
         </button>
       </div>
