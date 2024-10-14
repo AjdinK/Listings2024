@@ -12,17 +12,26 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     {{-- Google Font CDN --}}
+    {{--    <link rel="preconnect" href="https://fonts.googleapis.com">--}}
+    {{--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--}}
+    {{--    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"--}}
+    {{--          rel="stylesheet">--}}
+
+    {{-- Google Font CDN --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 
+
+    @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     @inertiaHead
     @routes
 </head>
 
-<body class="font-Montserrat bg-slate-100 text-slate-900 dark:bg-slate-700 dark:text-white">
+<body class="font-Inter bg-slate-100 text-slate-900 dark:bg-slate-700 dark:text-white">
 @inertia
 </body>
 

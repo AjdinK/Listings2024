@@ -1,5 +1,5 @@
 <script setup>
-import NavLink from "../../componetns/NavLink.vue";
+import NavLink from "../../Componetns/NavLink.vue";
 import {switchTheme} from "../theme.js";
 </script>
 
