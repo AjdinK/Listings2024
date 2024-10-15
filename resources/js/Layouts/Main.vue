@@ -11,6 +11,7 @@ import {switchTheme} from "../theme.js";
 
       <div class="flex gap-4 items-center">
 
+        <NavLink componentName="Auth/Login" routeName="login">Login</NavLink>
         <NavLink componentName="Auth/Register" routeName="register">Register</NavLink>
 
         <button
