@@ -8,7 +8,7 @@ import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
 import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
 
 const form = useForm({
-  username: '',
+  name: '',
   email: "",
   password: "",
   password_confirmation: ""
@@ -36,7 +36,7 @@ const submit = () => {
 
     <form class="space-y-6" @submit.prevent="submit">
 
-      <InputField v-model="form.username" icon="user" label="Username"/>
+      <InputField v-model="form.name" icon="user" label="Name"/>
       <InputField v-model="form.email" icon="at" label="Email" type="email"/>
       <InputField v-model="form.password" icon="key" label="Password" type="password"/>
       <InputField v-model="form.password_confirmation" icon="key" label="Confirm Password" type="password"/>
