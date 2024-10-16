@@ -16,7 +16,6 @@ class AuthenticateController extends Controller
 
     public function store(Request $request)
     {
-        // todo : add authentication
 
         $cardinals = $request->validate([
             "email" => 'required|email',
@@ -32,5 +31,13 @@ class AuthenticateController extends Controller
         return back()->withErrors([
             "email" => "The provided credentials do not match our records.",
         ])->onlyInput('email');
+    }
+
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
