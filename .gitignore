@@ -24,3 +24,8 @@ Homestead.json
 .idea/workspace.xml
 .idea/php.xml
 .idea/vcs.xml
+.idea/blade.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/jsLinters/eslint.xml
+.idea/laravel-idea.xml
+.idea/prettier.xml

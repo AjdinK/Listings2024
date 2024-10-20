@@ -1,6 +1,5 @@
 <script setup>
 import Container from "../../../Componetns/Container.vue";
-import Title from "../../../Componetns/Title.vue";
 import TextLink from "../../../Componetns/TextLink.vue";
 import InputField from "../../../Componetns/InputField.vue";
 import {useForm} from "@inertiajs/vue3";
@@ -41,9 +40,8 @@ const submit = () => {
 
       <div class="flex justify-between items-center mb-4">
         <CheckBox v-model="form.remember" name="remember">Remember Me</CheckBox>
-        
-        <!--        todo: add forgot password route link-->
-        <TextLink label="Forgot Password?" routeName="home"/>
+
+        <TextLink label="Forgot Password?" routeName="password.request"/>
       </div>
 
       <div class="flex justify-end">
