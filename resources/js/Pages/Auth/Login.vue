@@ -6,7 +6,11 @@ import {useForm} from "@inertiajs/vue3";
 import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
 import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
 import CheckBox from "../../../Componetns/CheckBox.vue";
+import SessionMessages from "../../../Componetns/SessionMessages.vue";
 
+defineProps({
+  status: String
+})
 const form = useForm({
   email: "",
   password: "",
@@ -32,6 +36,7 @@ const submit = () => {
     </div>
 
     <ErrorMessages :errors="form.errors"/>
+    <SessionMessages :status="status"/>
 
     <form class="space-y-6" @submit.prevent="submit">
 

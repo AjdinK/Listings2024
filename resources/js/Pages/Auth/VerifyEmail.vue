@@ -28,7 +28,7 @@ defineProps({
       </p>
     </div>
 
-    <SessionMessages status="status"/>
+    <SessionMessages :status="status"/>
 
     <form @submit.prevent="submit">
       <PrimaryBtn :disabled="form.processing">Resend Verification Email</PrimaryBtn>
