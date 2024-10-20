@@ -36,11 +36,15 @@ const show = ref(false);
           <div v-show="show" class="absolute z-50 top-16 right-0 
           bg-slate-800 text-white rounded-lg p-4 border-slate-500 overflow-hidden w-40" @click="show=false">
 
-            <Link class="block w-full rounded-lg px-3 py-4
+            <Link
+                :href="route('profile')"
+                class="block w-full rounded-lg px-3 py-4
             hover:bg-slate-700 text-left">Profile
             </Link>
 
-            <Link class="block w-full rounded-lg px-3 py-4
+            <Link
+                :href="route('dashboard')"
+                class="block w-full rounded-lg px-3 py-4
             hover:bg-slate-700 text-left">Dashboard
             </Link>
 

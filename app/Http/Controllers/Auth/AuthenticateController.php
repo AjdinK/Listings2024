@@ -26,8 +26,7 @@ class AuthenticateController extends Controller
 
         if (Auth::attempt($cardinals, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            //TODO: redirect user to the dashboard, now it redirects to the home page by default
-            return redirect()->route('home');
+            return redirect()->intended('dashboard');
         }
 
         return back()->withErrors([

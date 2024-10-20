@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticateController;
+use App\Http\Controllers\Auth\ConfirmPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -53,5 +54,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
         ->middleware('throttle:6,1')
         ->name('verification.send');
+
+    // Password Confirmation Routes
+    Route::get('/confirm-password', [ConfirmPasswordController::class, 'create'])
+        ->name('password.confirm');
+
+    Route::post('/confirm-password', [ConfirmPasswordController::class, 'store'])
+        ->middleware('throttle:6,1');
+
 
 });
