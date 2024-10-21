@@ -1,5 +1,5 @@
 <script setup>
-import NavLink from "../../Componetns/NavLink.vue";
+import NavLink from "../Componetns/NavLink.vue";
 import {switchTheme} from "../theme.js";
 import {usePage} from "@inertiajs/vue3";
 import {computed, ref} from "vue";
