@@ -1,10 +1,11 @@
 <script setup>
-import Container from "../../../Componetns/Container.vue";
-import Title from "../../../Componetns/Title.vue";
-import InputField from "../../../Componetns/InputField.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
-import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
+
+
+import {Head, useForm} from "@inertiajs/vue3";
+import Container from "../../Componetns/Container.vue";
+import ErrorMessages from "../../Componetns/ErrorMessages.vue";
+import InputField from "../../Componetns/InputField.vue";
+import PrimaryBtn from "../../Componetns/PrimaryBtn.vue";
 
 const props = defineProps({
   email: String,

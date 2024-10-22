@@ -12,13 +12,11 @@ Route::inertia('/', 'Home')
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->middleware(['verified', 'password.confirm'])
         ->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])
-        ->middleware(['verified', 'password.confirm'])
         ->name('profile.edit');
-
+    
 });
 
 

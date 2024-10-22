@@ -10,11 +10,14 @@ import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
   <Container class="mb-6">
 
     <div class="mb-6<">
+
       <Title>Update Information</Title>
       <p>Update your account's profile information and email address.</p>
+
     </div>
 
     <form class="space-y-6">
+
       <InputField class="w-1/2" icon="id-badge" label="Name"/>
       <InputField class="w-1/2" icon="at" label="Email"/>
 

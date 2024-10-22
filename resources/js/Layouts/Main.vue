@@ -1,8 +1,8 @@
 <script setup>
-import NavLink from "../Componetns/NavLink.vue";
 import {switchTheme} from "../theme.js";
 import {usePage} from "@inertiajs/vue3";
 import {computed, ref} from "vue";
+import NavLink from "../Componetns/NavLink.vue";
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -37,7 +37,7 @@ const show = ref(false);
           bg-slate-800 text-white rounded-lg p-4 border-slate-500 overflow-hidden w-40" @click="show=false">
 
             <Link
-                :href="route('profile')"
+                :href="route('profile.edit')"
                 class="block w-full rounded-lg px-3 py-4
             hover:bg-slate-700 text-left">Profile
             </Link>

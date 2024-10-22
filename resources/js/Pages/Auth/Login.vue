@@ -1,12 +1,12 @@
 <script setup>
-import Container from "../../../Componetns/Container.vue";
-import TextLink from "../../../Componetns/TextLink.vue";
-import InputField from "../../../Componetns/InputField.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
-import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
-import CheckBox from "../../../Componetns/CheckBox.vue";
-import SessionMessages from "../../../Componetns/SessionMessages.vue";
+import Container from "../../Componetns/Container.vue";
+import TextLink from "../../Componetns/TextLink.vue";
+import InputField from "../../Componetns/InputField.vue";
+import {Head, useForm} from "@inertiajs/vue3";
+import PrimaryBtn from "../../Componetns/PrimaryBtn.vue";
+import ErrorMessages from "../../Componetns/ErrorMessages.vue";
+import CheckBox from "../../Componetns/CheckBox.vue";
+import SessionMessages from "../../Componetns/SessionMessages.vue";
 
 defineProps({
   status: String

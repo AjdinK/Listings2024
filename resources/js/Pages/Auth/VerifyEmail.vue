@@ -1,9 +1,9 @@
 <script setup>
 
-import Container from "../../../Componetns/Container.vue";
-import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
-import {useForm} from "@inertiajs/vue3";
-import SessionMessages from "../../../Componetns/SessionMessages.vue";
+import {Head, useForm} from "@inertiajs/vue3";
+import SessionMessages from "../../Componetns/SessionMessages.vue";
+import Container from "../../Componetns/Container.vue";
+import PrimaryBtn from "../../Componetns/PrimaryBtn.vue";
 
 const form = useForm({})
 const submit = () => {

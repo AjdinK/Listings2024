@@ -1,9 +1,9 @@
 <script setup>
-import Container from "../../../Componetns/Container.vue";
-import InputField from "../../../Componetns/InputField.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
-import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
+import Container from "../../Componetns/Container.vue";
+import InputField from "../../Componetns/InputField.vue";
+import {Head, useForm} from "@inertiajs/vue3";
+import PrimaryBtn from "../../Componetns/PrimaryBtn.vue";
+import ErrorMessages from "../../Componetns/ErrorMessages.vue";
 
 
 const form = useForm({
