@@ -20,6 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
 
+    Route::put('/profile', [ProfileController::class, 'updatePassword'])
+        ->name('profile.password');
+
 });
 
 

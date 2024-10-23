@@ -6,6 +6,8 @@ import PrimaryBtn from "../../../Componetns/PrimaryBtn.vue";
 import {router, useForm} from "@inertiajs/vue3";
 import ErrorMessages from "../../../Componetns/ErrorMessages.vue";
 import SessionMessages from "../../../Componetns/SessionMessages.vue";
+import Title from "../../../Componetns/Title.vue";
+
 
 const props = defineProps({
   user: Object,

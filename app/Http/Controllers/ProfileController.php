@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -14,6 +15,20 @@ class ProfileController extends Controller
             "user" => $request->user(),
             'status' => session('status'),
         ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $fields = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', 'max:3'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($fields['password']),
+        ]);
+
+        return redirect()->route('profile.edit');
     }
 
     public function update(Request $request)
