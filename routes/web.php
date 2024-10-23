@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Home')
+Route::inertia('/', [ListingController::class, 'index'])
     ->middleware('verified')
     ->name('home');
 
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 
 });
+
+Route::resource('listing', ListingController::class)
+    ->except('index');
 
 
 require __DIR__.'/auth.php';

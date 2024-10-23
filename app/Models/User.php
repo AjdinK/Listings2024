@@ -32,6 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
+    public function listings()
+    {
+        return $this->hasMany(Listing::class, 'user_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
