@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -46,5 +47,19 @@ class ProfileController extends Controller
 
         $request->user()->save();
         return redirect()->route('profile.edit');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+        Auth::logout($user);
+        $user->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('home');
     }
 }
