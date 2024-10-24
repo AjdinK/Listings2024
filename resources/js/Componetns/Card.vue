@@ -12,7 +12,17 @@ defineProps({
     >
         <div>
             <!--Image-->
-            <div class="w-full h-48 bg-blue-300"></div>
+            <Link href="">
+                <img
+                    :src="
+                        listing.image
+                            ? `/storage/${listing.image}`
+                            : 'storage/images/listings/default.jpg'
+                    "
+                    alt="default image"
+                    class="w-full h-48 bg-blue-200 object-cover object-center"
+                />
+            </Link>
 
             <!--Title & User Info -->
             <div class="p-4">
