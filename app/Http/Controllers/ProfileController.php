@@ -12,8 +12,8 @@ class ProfileController extends Controller
 {
     public function edit(Request $request)
     {
-        return Inertia::render("Profile/Edit", [
-            "user" => $request->user(),
+        return Inertia::render('Profile/Edit', [
+            'user' => $request->user(),
             'status' => session('status'),
         ]);
     }
@@ -46,6 +46,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
         return redirect()->route('profile.edit');
     }
 
@@ -60,6 +61,7 @@ class ProfileController extends Controller
         $user->delete();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('home');
     }
 }
