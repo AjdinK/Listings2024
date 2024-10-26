@@ -1,8 +1,8 @@
 <script setup>
 import {Head, router, useForm} from "@inertiajs/vue3";
-import Card from "../Componetns/Card.vue";
-import PaginationLinks from "../Componetns/PaginationLinks.vue";
-import InputField from "../Componetns/InputField.vue";
+import Card from "../Components/Card.vue";
+import PaginationLinks from "../Components/PaginationLinks.vue";
+import InputField from "../Components/InputField.vue";
 
 const props = defineProps({
   listings: Object,
