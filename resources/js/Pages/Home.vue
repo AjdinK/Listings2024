@@ -26,18 +26,19 @@ const search = () => {
 </script>
 
 <template>
+
   <Head title=" - Latest Listings"/>
 
   <div class="flex items-center justify-center space-x-6 mb-4">
+    <div class="flex items-center gap-2">
+      <Link v-if="params.tag">{{ params.tag }}</Link>
+    </div>
+
+
     <div class="w-1/2 mb-4">
       <form @submit.prevent="search">
-        <InputField
-            v-model="form.search"
-            icon="magnifying-glass"
-            label=""
-            placeholder="Search..."
-            type="search"
-        />
+        <InputField v-model="form.search" icon="magnifying-glass" label="" placeholder="Search..."
+                    type="search"/>
       </form>
     </div>
   </div>

@@ -34,5 +34,6 @@ class Listing extends Model
         if ($filters['tag'] ?? false) {
             $query->where('tags', 'like', '%'.request('tag').'%');
         }
+
     }
 }

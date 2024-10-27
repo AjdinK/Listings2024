@@ -26,10 +26,11 @@ class ListingController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return Inertia::render('Home', [
-            'listings' => $listings,
-            'searchTerm' => $request->search,
-        ]);
+        return Inertia::render('Home',
+            [
+                'listings' => $listings,
+                'searchTerm' => $request->search,
+            ]);
     }
 
     /**
