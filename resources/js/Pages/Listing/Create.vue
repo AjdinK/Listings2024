@@ -6,6 +6,7 @@ import InputField from "../../Components/InputField.vue";
 import TextArea from "../../Components/TextArea.vue";
 import PrimaryBtn from "../../Components/PrimaryBtn.vue";
 import ImageUpload from "../../Components/ImageUpload.vue";
+import ErrorMessages from "../../Components/ErrorMessages.vue";
 
 const form = useForm({
     title: "",
@@ -25,6 +26,8 @@ const form = useForm({
         <div class="mb-6">
             <Title>Create New Listing</Title>
         </div>
+        <ErrorMessages :errors="form.errors" />
+
         <form class="grid grid-cols-2 gap-6">
 
             <div class='space-y-6'>
@@ -41,7 +44,7 @@ const form = useForm({
                 <InputField label="External Link" icon="up-right-from-square" placeholder="https://"
                     v-model="form.link" />
 
-                <ImageUpload />
+                <ImageUpload @image="(e) => form.image = e" />
             </div>
         </form>
     </Container>
