@@ -34,3 +34,5 @@ Homestead.json
 *.xml
 /.vscode
 .idea/listings2024.iml
+.phpstorm.meta.php
+_ide_helper.php
