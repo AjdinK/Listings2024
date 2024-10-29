@@ -4,6 +4,8 @@ import Container from "../../Components/Container.vue";
 import Title from "../../Components/Title.vue";
 import InputField from "../../Components/InputField.vue";
 import TextArea from "../../Components/TextArea.vue";
+import PrimaryBtn from "../../Components/PrimaryBtn.vue";
+import ImageUpload from "../../Components/ImageUpload.vue";
 
 const form = useForm({
     title: "",
@@ -29,14 +31,17 @@ const form = useForm({
                 <InputField label="Title" icon="heading" placeholder="Enter Listing Title" v-model="form.title" />
                 <InputField label="Tags (seperate with comma)" icon="tags" placeholder="one,two,three"
                     v-model="form.tags" />
-                <TextArea label="Description" icon="paragraph" placeholder="Enter Description"
+                <TextArea label="Description" icon="newspaper" placeholder="Enter Description"
                     v-model="form.description" />
-
+                <PrimaryBtn>Create</PrimaryBtn>
             </div>
+
             <div class='space-y-6'>
                 <InputField label=" Email" icon="at" placeholder="Enter Your Email" v-model="form.email" />
-                <InputField label="External Link" icon="up-right-from-squre" placeholder="https://"
+                <InputField label="External Link" icon="up-right-from-square" placeholder="https://"
                     v-model="form.link" />
+
+                <ImageUpload />
             </div>
         </form>
     </Container>

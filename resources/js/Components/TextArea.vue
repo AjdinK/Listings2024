@@ -22,9 +22,10 @@ defineProps({
                     <i :class="`fa-solid fa-${icon}`"></i>
                 </span>
             </div>
-            <TextArea row="5" v-model="model" :name="label" :placeholder="placeholder"
-                class="block w-full rounded-md pr-3 pl-9 text-sm dark:text-slate-900 border-slate-300 outline-0 focus:ring-1 focus:ring-inset focus:ring-indigo-400 focus:border-indigo-400 placeholder:text-slate-400">
-            </TextArea>
+            <textarea rows="6" v-model="model" :name="label" :placeholder="placeholder" class="block w-full rounded-md pr-3 pl-9 text-sm dark:text-slate-900
+                border-slate-300 outline-0 focus:ring-1 focus:ring-inset
+                focus:ring-indigo-400 focus:border-indigo-400 placeholder:text-slate-400">
+            </textarea>
         </div>
     </div>
 </template>
