@@ -85,7 +85,7 @@ class ListingController extends Controller
     {
         return Inertia::render('Listing/Show', [
             'listing' => $listing,
-            'user' => $listing->user->only(['id', 'name']),
+            'user' => $listing->user->only(['id', 'name', 'email']),
         ]);
     }
 
@@ -94,7 +94,9 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-        //
+        return Inertia::render('Listing/Edit', [
+            'listing' => $listing,
+        ]);
     }
 
     /**

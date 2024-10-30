@@ -8,13 +8,17 @@ import PrimaryBtn from "../../Components/PrimaryBtn.vue";
 import ImageUpload from "../../Components/ImageUpload.vue";
 import ErrorMessages from "../../Components/ErrorMessages.vue";
 
+const props = defineProps({
+    listing: Object
+});
+
 const form = useForm({
-    title: "",
-    description: "",
-    email: "",
-    tags: "",
-    link: "",
-    image: "",
+    title: props.listing.title,
+    description: props.listing.description,
+    email: props.listing.email,
+    tags: props.listing.tags,
+    link: props.listing.link,
+    image: null,
 });
 
 const submit = () => {
@@ -25,10 +29,10 @@ const submit = () => {
 
 <template>
 
-    <Head title=" - Create New Listing" />
+    <Head title=" - Edit Listing" />
     <Container>
         <div class="mb-6">
-            <Title>Create New Listing</Title>
+            <Title>Edit Your Listing</Title>
         </div>
         <ErrorMessages :errors="form.errors" />
 
@@ -40,7 +44,7 @@ const submit = () => {
                     v-model="form.tags" />
                 <TextArea label="Description" icon="newspaper" placeholder="Enter Description"
                     v-model="form.description" />
-                <PrimaryBtn :disabled='from.processing'>Create</PrimaryBtn>
+                <PrimaryBtn :disabled='form.processing'>Update</PrimaryBtn>
             </div>
 
             <div class='space-y-6'>
@@ -48,7 +52,7 @@ const submit = () => {
                 <InputField label="External Link" icon="up-right-from-square" placeholder="https://"
                     v-model="form.link" />
 
-                <ImageUpload @image="(e) => form.image = e" />
+                <ImageUpload @image="(e) => form.image = e" :listingImage='listing.image' />
             </div>
         </form>
     </Container>
