@@ -36,3 +36,4 @@ Homestead.json
 .idea/listings2024.iml
 .phpstorm.meta.php
 _ide_helper.php
+.php-cs-fixer.cache
