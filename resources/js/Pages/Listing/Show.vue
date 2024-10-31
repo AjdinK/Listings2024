@@ -1,21 +1,32 @@
 <script setup>
-import Container from "../../Components/Container.vue";
+import Container from '../../Components/Container.vue'
+import { router } from '@inertiajs/vue3'
 
-defineProps({
+const props = defineProps({
     listing: Object,
     user: Object,
-});
+})
+
+const deleteListing = () => {
+    if (confirm('Are you sure you want to delete this listing?')) {
+        router.delete(route('listing.destroy', props.listing.id))
+    }
+}
 </script>
 
 <template>
-
     <Head title="- Listing Detail" />
     <Container class="flex gap-4">
         <div class="w-1/4 rounded-md overflow-hidden">
-            <img :src="listing.image
-                ? `/storage/${listing.image}`
-                : '/storage/images/listing/default.jpg'
-                " class="w-full h-full object-cover object-center" alt="" />
+            <img
+                :src="
+                    listing.image
+                        ? `/storage/${listing.image}`
+                        : '/storage/images/listing/default.jpg'
+                "
+                class="w-full h-full object-cover object-center"
+                alt=""
+            />
         </div>
 
         <div class="w-3/4">
@@ -24,15 +35,26 @@ defineProps({
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing detail</p>
 
-                    <!-- Edit and delete buttons -->
-                    <div class='pl-4 flext items-center gap-4'>
-                        <Link :href='route("listing.edit", listing.id)'
-                            class='bg-blue-300 rounded-md text-blue-700 font-bold text-sm px-6 py-2 hover:outline outline-blue-400 outline-offset-2'>
-                        Edit
+                    <!-- Edit Button -->
+                    <div class="pl-4 flex justify-between items-center gap-4">
+                        <Link
+                            :href="route('listing.edit', listing.id)"
+                            class="bg-blue-300 rounded-md text-blue-700 font-bold text-sm px-6 py-2 hover:outline outline-blue-400 outline-offset-2"
+                        >
+                            Edit
                         </Link>
+
+                        <!-- Delete Buttons -->
+                        <button
+                            type="button"
+                            @click="deleteListing"
+                            :href="route('listing.edit', listing.id)"
+                            class="bg-red-300 rounded-md text-red-700 font-bold text-sm px-6 py-2 hover:outline outline-red-400 outline-offset-2"
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
-
                 <h3 class="font-bold text-2xl mb-4">{{ listing.title }}</h3>
                 <p>{{ listing.desc }}</p>
             </div>
@@ -63,8 +85,11 @@ defineProps({
                 <div class="flex items-center mb-2 gap-2">
                     <i class="fa-solid fa-user"></i>
                     <p>Listed by:</p>
-                    <Link :href="route('home', { user_id: user.id })" class="text-link">
-                    {{ user.name }}
+                    <Link
+                        :href="route('home', { user_id: user.id })"
+                        class="text-link"
+                    >
+                        {{ user.name }}
                     </Link>
                 </div>
             </div>
@@ -75,9 +100,11 @@ defineProps({
 
                 <div class="flex items-center gap-3">
                     <div v-for="tag in listing.tags.split(',')" :key="tag">
-                        <Link :href="route('home', { tag })"
-                            class="bg-slate-500 text-white px-2 py-px rounded-full hover:bg-slate-700 dark:hover:bg-slate-900">
-                        {{ tag }}
+                        <Link
+                            :href="route('home', { tag })"
+                            class="bg-slate-500 text-white px-2 py-px rounded-full hover:bg-slate-700 dark:hover:bg-slate-900"
+                        >
+                            {{ tag }}
                         </Link>
                     </div>
                 </div>

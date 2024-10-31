@@ -148,9 +148,15 @@ class ListingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     */
+*/
+
     public function destroy(Listing $listing)
     {
-        //
+
+        if ($listing->image) {
+            Storage::disk('public')->delete($listing->image);
+        }
+        $listing->delete();
+        return redirect()->route('dashboard')->with('status', 'Listing deleted successfully!');
     }
 }
