@@ -25,7 +25,17 @@ const deleteListing = () => {
                         : '/storage/images/listing/default.jpg'
                 "
                 class="w-full h-full object-cover object-center"
-                alt=""
+                alt="Listing image"
+            />
+
+            <img
+                :src="
+                    listing.image
+                        ? `/storage/${listing.image}`
+                        : 'storage/images/listings/default.jpg'
+                "
+                alt="default image"
+                class="w-full h-48 bg-blue-200 object-cover object-center"
             />
         </div>
 

@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use app\Http\Middleware\NotSuspended;
 
-class ListingController extends Controller
+class ListingController extends Controller implements HasMiddleware
 {
+    //middleware for auth
+    public static function middleware()
+    {
+        return [
+            new Middleware(['auth','verified', NotSuspended::class], except:['index','show'])
+            ];
+    }
+
     /**
      * Display a listing of the resource.
      */

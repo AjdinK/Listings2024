@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ListingController::class, 'index'])
-    ->middleware('verified')
     ->name('home');
 
 Route::middleware('auth')->group(function () {
