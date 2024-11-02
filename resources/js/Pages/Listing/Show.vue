@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3'
 const props = defineProps({
     listing: Object,
     user: Object,
+    canModify: Boolean,
 })
 
 const deleteListing = () => {
@@ -27,16 +28,6 @@ const deleteListing = () => {
                 class="w-full h-full object-cover object-center"
                 alt="Listing image"
             />
-
-            <img
-                :src="
-                    listing.image
-                        ? `/storage/${listing.image}`
-                        : 'storage/images/listings/default.jpg'
-                "
-                alt="default image"
-                class="w-full h-48 bg-blue-200 object-cover object-center"
-            />
         </div>
 
         <div class="w-3/4">
@@ -44,9 +35,11 @@ const deleteListing = () => {
             <div class="mb-6">
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing detail</p>
-
                     <!-- Edit Button -->
-                    <div class="pl-4 flex justify-between items-center gap-4">
+                    <div
+                        v-if="canModify"
+                        class="pl-4 flex justify-between items-center gap-4"
+                    >
                         <Link
                             :href="route('listing.edit', listing.id)"
                             class="bg-blue-300 rounded-md text-blue-700 font-bold text-sm px-6 py-2 hover:outline outline-blue-400 outline-offset-2"

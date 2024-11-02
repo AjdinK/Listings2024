@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use app\Http\Middleware\NotSuspended;
+use App\Http\Middleware\NotSuspended;
 
 class ListingController extends Controller implements HasMiddleware
 {
@@ -50,6 +52,8 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
+
+        Gate::authorize('create', Listing::class);
         //
         // $newTags = explode(',', $request->tags);
         // $newTags = array_map('trim', $newTags);
@@ -92,6 +96,7 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function create()
     {
+        Gate::authorize('create', Listing::class);
         return Inertia::render('Listing/Create');
     }
 
@@ -100,10 +105,14 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function show(Listing $listing)
     {
+
+        Gate::authorize('view', $listing);
+
         return Inertia::render('Listing/Show', [
             'listing' => $listing,
             'user' => $listing->user->only(['id', 'name', 'email']),
-        ]);
+            'canModify' => Auth::user() ? Auth::user()->can('modify', $listing) : false
+         ]);
     }
 
     /**
@@ -111,6 +120,8 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function edit(Listing $listing)
     {
+        Gate::authorize('modify', $listing);
+
         return Inertia::render('Listing/Edit', [
             'listing' => $listing,
         ]);
@@ -121,6 +132,10 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Listing $listing)
     {
+
+        Gate::authorize('modify', $listing);
+
+
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
             'email' => ['nullable', 'email'],
@@ -163,6 +178,8 @@ class ListingController extends Controller implements HasMiddleware
 
     public function destroy(Listing $listing)
     {
+
+        Gate::authorize('modify', $listing);
 
         if ($listing->image) {
             Storage::disk('public')->delete($listing->image);
