@@ -4,10 +4,9 @@ import Container from '../../Components/Container.vue'
 import Title from '../../Components/Title.vue'
 import InputField from '../../Components/InputField.vue'
 import TextArea from '../../Components/TextArea.vue'
-import PrimaryBtn from '../../Components/PrimaryBtn.vue'
 import ImageUpload from '../../Components/ImageUpload.vue'
 import ErrorMessages from '../../Components/ErrorMessages.vue'
-
+import PrimaryBtn from '../../Components/PrimaryBtn.vue'
 const form = useForm({
     title: '',
     description: '',
@@ -50,7 +49,8 @@ const submit = () => {
                     placeholder="Enter Description"
                     v-model="form.description"
                 />
-                <PrimaryBtn :disabled="from.processing">Create</PrimaryBtn>
+
+                <PrimaryBtn :disabled="form.processing">Create</PrimaryBtn>
             </div>
 
             <div class="space-y-6">
