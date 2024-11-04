@@ -1,6 +1,6 @@
 <script setup>
 import PaginationLinks from '../../Components/PaginationLinks.vue'
-
+import Title from '../../Components/Title.vue'
 defineProps({ users: Object })
 </script>
 
@@ -8,7 +8,7 @@ defineProps({ users: Object })
     <Head title="- Admin" />
 
     <!-- Heading -->
-    <div>heading</div>
+    <Title class="mb-4">Users List</Title>
 
     <!-- Table -->
     <table
