@@ -1,12 +1,12 @@
 <script setup>
-import { switchTheme } from "../theme.js";
-import { usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
-import NavLink from "../Components/NavLink.vue";
+import { switchTheme } from '../theme.js'
+import { usePage } from '@inertiajs/vue3'
+import { computed, ref } from 'vue'
+import NavLink from '../Components/NavLink.vue'
 
-const page = usePage();
-const user = computed(() => page.props.auth.user);
-const show = ref(false);
+const page = usePage()
+const user = computed(() => page.props.auth.user)
+const show = ref(false)
 </script>
 
 <template>
@@ -21,14 +21,25 @@ const show = ref(false);
 
             <div class="flex gap-4 items-center">
                 <!--Auth-->
-                <div v-if="user" class="relative">
+                <!-- Username with arrow icon -->
+                <div v-if="user" class="relative flex items-center gap-2">
                     <div
                         :class="{ 'bg-slate-700': show }"
-                        class="flex items-center gap-2 px-3 py-3 rounded-lg hover:bg-slate-700 cursor-pointer"
+                        class="flex items-center gap-2 px-3 py-3 capitalize rounded-lg hover:bg-slate-700 cursor-pointer"
                         @click="show = !show"
                     >
                         <p>{{ user.name }}</p>
                         <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <!-- Admin Dashboard icon -->
+                    <div v-if="user.role === 'admin'">
+                        <Link
+                            :href="route('admin.index')"
+                            class="hover:bg-slate-700 w-6 h-6 grid place-items-center rounded-full hover:outline outline-1 outline-white"
+                        >
+                            <i class="fa-solid fa-lock"></i>
+                        </Link>
                     </div>
                     <!--user drop down menu-->
 

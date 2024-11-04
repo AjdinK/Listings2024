@@ -168,7 +168,7 @@ class ListingController extends Controller implements HasMiddleware
             )
         );
 
-        $listing->update(...$fields,'approved' => false);
+        $listing->update([...$fields,'approved' => false]);
         return redirect()->route('dashboard')->with('status', 'Listing updated successfully!');
     }
 
