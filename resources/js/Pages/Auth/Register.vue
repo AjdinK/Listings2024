@@ -1,24 +1,24 @@
 <script setup>
-import Container from "../../Components/Container.vue";
-import Title from "../../Components/Title.vue";
-import TextLink from "../../Components/TextLink.vue";
-import InputField from "../../Components/InputField.vue";
-import { Head, useForm } from "@inertiajs/vue3";
-import PrimaryBtn from "../../Components/PrimaryBtn.vue";
-import ErrorMessages from "../../Components/ErrorMessages.vue";
+import Container from '../../Components/Container.vue'
+import Title from '../../Components/Title.vue'
+import TextLink from '../../Components/TextLink.vue'
+import InputField from '../../Components/InputField.vue'
+import { Head, useForm } from '@inertiajs/vue3'
+import PrimaryBtn from '../../Components/PrimaryBtn.vue'
+import ErrorMessages from '../../Components/ErrorMessages.vue'
 
 const form = useForm({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-});
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+})
 
 const submit = () => {
-    form.post(route("register"), {
-        onFinish: () => form.reset("password", "password_confirmation"),
-    });
-};
+    form.post(route('register'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
+    })
+}
 </script>
 <template>
     <Head title="- Register" />
@@ -54,7 +54,6 @@ const submit = () => {
                 label="Confirm Password"
                 type="password"
             />
-
             <p>
                 By signing up, you agree to our
                 <TextLink
