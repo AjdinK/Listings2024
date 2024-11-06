@@ -37,3 +37,6 @@ Homestead.json
 .phpstorm.meta.php
 _ide_helper.php
 .php-cs-fixer.cache
+.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+.idea/Listings2024.iml
+composer.lock
