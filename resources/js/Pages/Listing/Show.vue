@@ -1,22 +1,36 @@
 <script setup>
-import Container from '../../Components/Container.vue'
-import { router } from '@inertiajs/vue3'
+import Container from "../../Components/Container.vue";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
     listing: Object,
     user: Object,
     canModify: Boolean,
-})
+});
 
 const deleteListing = () => {
-    if (confirm('Are you sure you want to delete this listing?')) {
-        router.delete(route('listing.destroy', props.listing.id))
+    if (confirm("Are you sure you want to delete this listing?")) {
+        router.delete(route("listing.destroy", props.listing.id));
     }
-}
+};
 </script>
 
 <template>
     <Head title="- Listing Detail" />
+
+    <!-- Admin -->
+    <div
+        v-if="$page.props.auth.user.role === 'admin'"
+        class="bg-slate-800 text-white mb-6 p-6 rounded-md font-medium flex items-center justify-between"
+    >
+        <p>
+            This listing is {{ listing.approved ? "Approved" : "Disapproved" }}.
+        </p>
+        <button class="bg-slate-600 px-3 py-1 rounded-md">
+            {{ listing.approved ? "Disapprove it" : "Approve it" }}
+        </button>
+    </div>
+
     <Container class="flex gap-4">
         <div class="w-1/4 rounded-md overflow-hidden">
             <img
