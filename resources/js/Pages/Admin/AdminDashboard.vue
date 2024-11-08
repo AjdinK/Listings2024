@@ -1,39 +1,39 @@
 <script setup>
-import PaginationLinks from '../../Components/PaginationLinks.vue'
-import RoleSelect from '../../Components/RoleSelect.vue'
-import SessionMessages from '../../Components/SessionMessages.vue'
-import InputField from '../../Components/InputField.vue'
-import { router, useForm } from '@inertiajs/vue3'
+import PaginationLinks from "../../Components/PaginationLinks.vue";
+import RoleSelect from "../../Components/RoleSelect.vue";
+import SessionMessages from "../../Components/SessionMessages.vue";
+import InputField from "../../Components/InputField.vue";
+import { router, useForm } from "@inertiajs/vue3";
 
-defineProps({ users: Object, status: String })
+defineProps({ users: Object, status: String });
 
-const params = route().params
-const form = useForm({ search: params.search })
+const params = route().params;
+const form = useForm({ search: params.search });
 
 const search = () => {
-    router.get(route('admin.index'), {
+    router.get(route("admin.index"), {
         search: form.search,
         user_role: params.user_role,
-    })
-}
+    });
+};
 
 const toggleRole = (e) => {
     if (e.target.checked) {
         router.get(
-            route('admin.index', {
+            route("admin.index", {
                 search: params.search,
-                user_role: 'suspended',
-            }),
-        )
+                user_role: "suspended",
+            })
+        );
     } else {
         router.get(
-            route('admin.index', {
+            route("admin.index", {
                 search: params.search,
                 user_role: null,
-            }),
-        )
+            })
+        );
     }
-}
+};
 </script>
 
 <template>
@@ -140,7 +140,12 @@ const toggleRole = (e) => {
                     </div>
                 </td>
 
-                <td class="w-1/6 py-5 px-3 text-right">view link</td>
+                <td class="w-1/6 py-5 px-3 text-right">
+                    <Link
+                        :href="route('user.show', user.id)"
+                        class="fa-solid fa-up-right-from-square px-3 text-indigo-400"
+                    ></Link>
+                </td>
             </tr>
         </tbody>
     </table>

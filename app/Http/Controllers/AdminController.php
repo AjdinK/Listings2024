@@ -32,4 +32,14 @@ class AdminController extends Controller
             ->route('admin.index')
             ->with('status', 'User role Change to '.$request->role.' successfully');
     }
+
+    public function show(User $user)
+    {
+        $userListings = $user->listings()->latest()->paginate(10);
+
+        return Inertia::render('Admin/UserPage', [
+            'user' => $user,
+            'listings' => $userListings,
+        ]);
+    }
 }

@@ -25,12 +25,12 @@ Route::middleware('guest')->group(function () {
     Route::get('/forgot-password', [ResetPasswordController::class, 'create'])
         ->name('password.request');
 
-    Route::post("/forgot-password", [ResetPasswordController::class, 'sendEmail'])
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendEmail'])
         ->name('password.email');
 
     //reset password routes
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])
-        ->name("password.reset");
+        ->name('password.reset');
 
     Route::post('/reset-password', [ResetPasswordController::class, 'resetHandler'])
         ->name('password.update');
@@ -61,6 +61,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/confirm-password', [ConfirmPasswordController::class, 'store'])
         ->middleware('throttle:6,1');
-
 
 });
