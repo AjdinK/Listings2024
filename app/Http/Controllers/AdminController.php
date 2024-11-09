@@ -35,7 +35,11 @@ class AdminController extends Controller
 
     public function show(User $user)
     {
-        $userListings = $user->listings()->latest()->paginate(10);
+        $userListings = $user->listings()
+            ->filter(request(['search', 'disapproved']))
+            ->latest()
+            ->paginate(10)
+            ->WithQueryString();
 
         return Inertia::render('Admin/UserPage', [
             'user' => $user,
