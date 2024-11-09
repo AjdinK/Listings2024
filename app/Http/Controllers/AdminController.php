@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,7 +36,7 @@ class AdminController extends Controller
 
     public function show(User $user)
     {
-        $userListings = $user->listings()
+        $userlistings = $user->listings()
             ->filter(request(['search', 'disapproved']))
             ->latest()
             ->paginate(10)
@@ -43,7 +44,19 @@ class AdminController extends Controller
 
         return Inertia::render('Admin/UserPage', [
             'user' => $user,
-            'listings' => $userListings,
+            'listings' => $userlistings,
+            'status' => session('status'),
         ]);
+    }
+
+    public function approve(Listing $listing)
+    {
+        $listing->update([
+            'approved' => ! $listing->approved,
+        ]);
+
+        $msg = $listing->approved ? 'approved' : 'disapproved';
+
+        return back()->with('status', "Listing {$msg} successfully");
     }
 }

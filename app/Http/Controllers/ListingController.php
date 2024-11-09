@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\NotSuspended;
 use App\Models\Listing;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -11,16 +12,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use App\Http\Middleware\NotSuspended;
 
 class ListingController extends Controller implements HasMiddleware
 {
-    //middleware for auth
     public static function middleware()
     {
         return [
-            new Middleware(['auth','verified', NotSuspended::class], except:['index','show'])
-            ];
+            new Middleware(
+                ['auth', 'verified', NotSuspended::class],
+                except: ['index', 'show']
+            ),
+        ];
     }
 
     /**
@@ -38,13 +40,10 @@ class ListingController extends Controller implements HasMiddleware
             ->paginate(6)
             ->withQueryString();
 
-        return Inertia::render(
-            'Home',
-            [
-                'listings' => $listings,
-                'searchTerm' => $request->search,
-            ]
-        );
+        return Inertia::render('Home', [
+            'listings' => $listings,
+            'searchTerm' => $request->search,
+        ]);
     }
 
     /**
@@ -52,43 +51,32 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-
         Gate::authorize('create', Listing::class);
-        //
-        // $newTags = explode(',', $request->tags);
+
+        // $newTags = explode(',' ,  $request->tags);
         // $newTags = array_map('trim', $newTags);
-        // $newTags = filter($newTags);
+        // $newTags = array_filter($newTags);
         // $newTags = array_unique($newTags);
         // $newTags = implode(',', $newTags);
+
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
+            'desc' => ['required'],
+            'tags' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
-            'description' => ['required', 'max:255'],
-            'tags' => ['String', 'nullable'],
-            'url' => ['url', 'nullable'],
-            'image' => ['nullable', 'file', 'max:3072', 'mimes:png,jpg,jpeg,webp'],
+            'link' => ['nullable', 'url'],
+            'image' => ['nullable', 'file', 'max:3072', 'mimes:jpeg,jpg,png,webp'],
         ]);
 
         if ($request->hasFile('image')) {
-            $fields['image'] = Storage::disk('public')
-                ->put('images/listing', $request->image);
+            $fields['image'] = Storage::disk('public')->put('images/listing', $request->image);
         }
 
-        $fields['tags'] = implode(
-            ',',
-            array_unique(
-                array_filter(
-                    array_map(
-                        'trim',
-                        explode(',', $request->tags)
-                    )
-                )
-            )
-        );
+        $fields['tags'] = implode(',', array_unique(array_filter(array_map('trim', explode(',', $request->tags)))));
 
         $request->user()->listings()->create($fields);
 
-        return redirect()->route('dashboard')->with('status', 'Listing created successfully!');
+        return redirect()->route('dashboard')->with('status', 'Listing created successfully.');
     }
 
     /**
@@ -97,6 +85,7 @@ class ListingController extends Controller implements HasMiddleware
     public function create()
     {
         Gate::authorize('create', Listing::class);
+
         return Inertia::render('Listing/Create');
     }
 
@@ -105,14 +94,13 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function show(Listing $listing)
     {
-
         Gate::authorize('view', $listing);
 
         return Inertia::render('Listing/Show', [
             'listing' => $listing,
-            'user' => $listing->user->only(['id', 'name', 'email']),
-            'canModify' => Auth::user() ? Auth::user()->can('modify', $listing) : false
-         ]);
+            'user' => $listing->user->only(['name', 'id']),
+            'canModify' => Auth::user() ? Auth::user()->can('modify', $listing) : false,
+        ]);
     }
 
     /**
@@ -132,59 +120,46 @@ class ListingController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Listing $listing)
     {
-
         Gate::authorize('modify', $listing);
-
 
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
+            'desc' => ['required'],
+            'tags' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
-            'description' => ['required', 'max:255'],
-            'tags' => ['String', 'nullable'],
-            'url' => ['url', 'nullable'],
-            'image' => ['nullable', 'file', 'max:3072', 'mimes:png,jpg,jpeg,webp'],
+            'link' => ['nullable', 'url'],
+            'image' => ['nullable', 'file', 'max:3072', 'mimes:jpeg,jpg,png,webp'],
         ]);
 
         if ($request->hasFile('image')) {
-
             if ($listing->image) {
                 Storage::disk('public')->delete($listing->image);
             }
-            $fields['image'] = Storage::disk('public')
-                ->put('images/listing', $request->image);
+            $fields['image'] = Storage::disk('public')->put('images/listing', $request->image);
         } else {
             $fields['image'] = $listing->image;
         }
 
-        $fields['tags'] = implode(
-            ',',
-            array_unique(
-                array_filter(
-                    array_map(
-                        'trim',
-                        explode(',', $request->tags)
-                    )
-                )
-            )
-        );
+        $fields['tags'] = implode(',', array_unique(array_filter(array_map('trim', explode(',', $request->tags)))));
 
-        $listing->update([...$fields,'approved' => false]);
-        return redirect()->route('dashboard')->with('status', 'Listing updated successfully!');
+        $listing->update([...$fields, 'approved' => false]);
+
+        return redirect()->route('dashboard')->with('status', 'Listing updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
-*/
-
+     */
     public function destroy(Listing $listing)
     {
-
         Gate::authorize('modify', $listing);
 
         if ($listing->image) {
             Storage::disk('public')->delete($listing->image);
         }
+
         $listing->delete();
-        return redirect()->route('dashboard')->with('status', 'Listing deleted successfully!');
+
+        return redirect()->route('dashboard')->with('status', 'Listing deleted successfully.');
     }
 }

@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified', Admin::class])
         Route::get('/users/{user}', 'show')
             ->name('user.show');
 
+        Route::put('/lisitng/{listing}/approve', 'approve')
+            ->name('admin.approve');
+
     });
 
 //Auth Route

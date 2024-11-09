@@ -1,58 +1,58 @@
 <script setup>
-import { router, useForm } from '@inertiajs/vue3'
-import Title from '../../Components/Title.vue'
-import InputField from '../../Components/InputField.vue'
-import PaginationLinks from '../../Components/PaginationLinks.vue'
-import SessionMessages from '../../Components/SessionMessages.vue'
+import { router, useForm } from "@inertiajs/vue3";
+import Title from "../../Components/Title.vue";
+import InputField from "../../Components/InputField.vue";
+import PaginationLinks from "../../Components/PaginationLinks.vue";
+import SessionMessages from "../../Components/SessionMessages.vue";
 
 const props = defineProps({
     user: Object,
     listings: Object,
     status: String,
-})
+});
 
-const params = route().params
-const form = useForm({ search: params.search })
+const params = route().params;
+const form = useForm({ search: params.search });
 
 const search = () => {
     router.get(
-        route('user.show', {
+        route("user.show", {
             user: props.user.id,
             search: form.search,
             disapproved: params.disapproved,
         }),
-    )
-}
+    );
+};
 
 const showDisapproved = (e) => {
     if (e.target.checked) {
         router.get(
-            route('user.show', {
+            route("user.show", {
                 user: props.user.id,
                 search: params.search,
                 disapproved: true,
             }),
-        )
+        );
     } else {
         router.get(
-            route('user.show', {
+            route("user.show", {
                 user: props.user.id,
                 search: params.search,
                 disapproved: null,
             }),
-        )
+        );
     }
-}
+};
 
 const toggleApprove = (listing) => {
     let msg = listing.approved
-        ? 'Disapprove this listing?'
-        : 'Approve this listing?'
+        ? "Disapprove this listing?"
+        : "Approve this listing?";
 
     if (confirm(msg)) {
-        router.put(route('admin.approve', listing.id))
+        router.put(route("admin.approve", listing.id));
     }
-}
+};
 </script>
 
 <template>
@@ -67,14 +67,13 @@ const toggleApprove = (listing) => {
                 <!-- Search form -->
                 <form @submit.prevent="search">
                     <InputField
-                        label=""
-                        icon="magnifying-glass"
-                        placeholder="Search..."
                         v-model="form.search"
+                        icon="magnifying-glass"
+                        label=""
+                        placeholder="Search..."
                     />
                 </form>
                 <Link
-                    class="px-2 py-[6px] rounded-md bg-indigo-500 text-white flex items-center gap-2"
                     v-if="params.search"
                     :href="
                         route('user.show', {
@@ -84,6 +83,7 @@ const toggleApprove = (listing) => {
                             user: user.id,
                         })
                     "
+                    class="px-2 py-[6px] rounded-md bg-indigo-500 text-white flex items-center gap-2"
                 >
                     {{ params.search }}
                     <i class="fa-solid fa-xmark"></i>
@@ -95,15 +95,15 @@ const toggleApprove = (listing) => {
                 class="flex items-center gap-1 text-xs hover:bg-slate-300 dark:hover:bg-slate-800 px-2 py-1 rounded-md"
             >
                 <input
-                    @input="showDisapproved"
-                    :checked="params.disapproved"
-                    type="checkbox"
                     id="showDisapproved"
+                    :checked="params.disapproved"
                     class="rounded-md border-1 outline-0 text-indigo-500 ring-indigo-500 border-slate-700 cursor-pointer"
+                    type="checkbox"
+                    @input="showDisapproved"
                 />
                 <label
-                    for="showDisapproved"
                     class="block text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer"
+                    for="showDisapproved"
                 >
                     Show disapproved listings
                 </label>

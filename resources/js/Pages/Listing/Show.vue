@@ -1,6 +1,6 @@
 <script setup>
-import Container from "../../Components/Container.vue";
 import { router } from "@inertiajs/vue3";
+import Container from "../../Components/Container.vue";
 
 const props = defineProps({
     listing: Object,
@@ -9,8 +9,18 @@ const props = defineProps({
 });
 
 const deleteListing = () => {
-    if (confirm("Are you sure you want to delete this listing?")) {
+    if (confirm("Are you sure?")) {
         router.delete(route("listing.destroy", props.listing.id));
+    }
+};
+
+const toggleApprove = () => {
+    let msg = props.listing.approved
+        ? "Disapprove this listing?"
+        : "Approve this listing?";
+
+    if (confirm(msg)) {
+        router.put(route("admin.approve", props.listing.id));
     }
 };
 </script>
@@ -20,13 +30,16 @@ const deleteListing = () => {
 
     <!-- Admin -->
     <div
-        v-if="$page.props.auth.user.role === 'admin'"
+        v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'"
         class="bg-slate-800 text-white mb-6 p-6 rounded-md font-medium flex items-center justify-between"
     >
         <p>
             This listing is {{ listing.approved ? "Approved" : "Disapproved" }}.
         </p>
-        <button class="bg-slate-600 px-3 py-1 rounded-md">
+        <button
+            class="bg-slate-600 px-3 py-1 rounded-md"
+            @click.prevent="toggleApprove"
+        >
             {{ listing.approved ? "Disapprove it" : "Approve it" }}
         </button>
     </div>
@@ -39,8 +52,8 @@ const deleteListing = () => {
                         ? `/storage/${listing.image}`
                         : '/storage/images/listing/default.jpg'
                 "
+                alt=""
                 class="w-full h-full object-cover object-center"
-                alt="Listing image"
             />
         </div>
 
@@ -49,29 +62,26 @@ const deleteListing = () => {
             <div class="mb-6">
                 <div class="flex items-end justify-between mb-2">
                     <p class="text-slate-400 w-full border-b">Listing detail</p>
-                    <!-- Edit Button -->
-                    <div
-                        v-if="canModify"
-                        class="pl-4 flex justify-between items-center gap-4"
-                    >
+
+                    <!-- Edit and delete buttons -->
+                    <div v-if="canModify" class="pl-4 flex items-center gap-4">
                         <Link
                             :href="route('listing.edit', listing.id)"
-                            class="bg-blue-300 rounded-md text-blue-700 font-bold text-sm px-6 py-2 hover:outline outline-blue-400 outline-offset-2"
+                            class="bg-green-500 rounded-md text-white px-6 py-2 hover:outline outline-green-500 outline-offset-2"
                         >
                             Edit
                         </Link>
 
-                        <!-- Delete Buttons -->
                         <button
+                            class="bg-red-500 rounded-md text-white px-6 py-2 hover:outline outline-red-500 outline-offset-2"
                             type="button"
                             @click="deleteListing"
-                            :href="route('listing.edit', listing.id)"
-                            class="bg-red-300 rounded-md text-red-700 font-bold text-sm px-6 py-2 hover:outline outline-red-400 outline-offset-2"
                         >
                             Delete
                         </button>
                     </div>
                 </div>
+
                 <h3 class="font-bold text-2xl mb-4">{{ listing.title }}</h3>
                 <p>{{ listing.desc }}</p>
             </div>
@@ -93,7 +103,7 @@ const deleteListing = () => {
                 <div v-if="listing.link" class="flex items-center mb-2 gap-2">
                     <i class="fa-solid fa-up-right-from-square"></i>
                     <p>External Link:</p>
-                    <a :href="listing.link" target="_blank" class="text-link">
+                    <a :href="listing.link" class="text-link" target="_blank">
                         {{ listing.link }}
                     </a>
                 </div>
