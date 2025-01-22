@@ -13,7 +13,7 @@ const props = defineProps({
 
 const username = params.user_id
     ? props.listings.data.find(
-          (user) => user.user_id === Number(params.user_id),
+          (user) => user.user_id === Number(params.user_id)
       ).user.name
     : null;
 

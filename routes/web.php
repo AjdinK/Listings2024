@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('listing', ListingController::class)
     ->except('index');
 
-//Admin Route
+// Admin Route
 Route::middleware(['auth', 'verified', Admin::class])
     ->controller(AdminController::class)
     ->group(function () {
@@ -49,5 +49,5 @@ Route::middleware(['auth', 'verified', Admin::class])
 
     });
 
-//Auth Route
+// Auth Route
 require __DIR__.'/auth.php';
