@@ -20,7 +20,7 @@
         "nunomaduro/collision": "^8.0",
         "pestphp/pest": "^2.35",
         "pestphp/pest-plugin-laravel": "^2.4",
-        "soloterm/solo": "^0.3.1"
+        "soloterm/solo": "^0.4.0"
     },
     "autoload": {
         "psr-4": {
